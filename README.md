@@ -1,6 +1,6 @@
 # TicTacToeBoard
 
-[![Build Status](https://travis-ci.org/mdant1/TicTacToeBoard.svg?branch=master)](https://travis-ci.org/mdant1/TicTacToeBoard)
+[![Build Status](https://travis-ci.com/mdant1/TicTacToeBoard.svg?branch=master)](https://travis-ci.org/mdant1/TicTacToeBoard)
 
 ## Associated Enumerated Types
 `Piece` has four possible values: `X`,`O`,`Invalid`, and `Blank`
