@@ -5,6 +5,7 @@
 **/
 
 //Constructor sets an empty board and specifies it is X's turn first
+
 TicTacToeBoard::TicTacToeBoard()
 {
   turn = X;
@@ -19,7 +20,12 @@ TicTacToeBoard::TicTacToeBoard()
 **/
 Piece TicTacToeBoard::toggleTurn()
 {
-  return Invalid;
+  if(turn == X){
+    turn = O;
+  }
+  else
+    turn = X;
+  return turn;
 }
 
 /**
@@ -33,7 +39,14 @@ Piece TicTacToeBoard::toggleTurn()
 **/ 
 Piece TicTacToeBoard::placePiece(int row, int column)
 {
-  return Invalid;
+  if((row>2 || row < 0) || (column > 2 || column < 0) ){
+    return Invalid;
+  }
+  if(board[row][column] == Blank){
+     board[row][column] = turn;
+     turn = toggleTurn();
+  }
+  return board[row][column];
 }
 
 /**
@@ -42,7 +55,7 @@ Piece TicTacToeBoard::placePiece(int row, int column)
 **/
 Piece TicTacToeBoard::getPiece(int row, int column)
 {
-  return Invalid;
+  return board[row][column];
 }
 
 /**
@@ -51,5 +64,57 @@ Piece TicTacToeBoard::getPiece(int row, int column)
 **/
 Piece TicTacToeBoard::getWinner()
 {
-  return Invalid;
+  bool filled = true;
+  int xpoint = 0;
+  int opoint = 0;
+  for(int i=0; i<BOARDSIZE; i++){
+    for(int j=0; j<BOARDSIZE; j++){
+      if(board[i][j] == X)
+        ++xpoint;
+      if(board[i][j] == O)
+        ++opoint;
+      if(board[i][j] == Blank)
+        filled = false;
+    }
+    if(xpoint == 3){
+      return X;
+    }
+    if(opoint == 3){
+      return O;
+    }
+    xpoint = 0;
+    opoint = 0;
+   }
+    for(int i=0; i<BOARDSIZE; i++){
+    for(int j=0; j<BOARDSIZE; j++){
+      if(board[j][i] == X)
+        ++xpoint;
+      if(board[j][i] == O)
+        ++opoint;
+    }
+    if(xpoint == 3){
+      return X;
+    }
+    if(opoint == 3){
+      return O;
+    }
+    xpoint = 0;
+    opoint = 0;
+   }
+  if(board[0][0] == board[1][1] && board[1][1] == board[2][2]){
+    if(board[1][1] == X)
+      return X;
+    if(board[1][1] == O)
+      return O;
+  }
+  if(board[2][0] == board[1][1] && board[1][1] == board[0][2]){
+    if(board[1][1] == X)
+      return X;
+    if(board[1][1] == O)
+      return O;
+  }
+  if(filled == false)
+    return Invalid;
+  if(filled = true)
+    return Blank;
 }

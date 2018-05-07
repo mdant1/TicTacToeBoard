@@ -1,0 +1,193 @@
+        -:    0:Source:TicTacToeBoard.cpp
+        -:    0:Graph:TicTacToeBoard.gcno
+        -:    0:Data:TicTacToeBoard.gcda
+        -:    0:Runs:4
+        -:    0:Programs:3
+        -:    1:#include "TicTacToeBoard.h"
+        -:    2:/**
+        -:    3: * Class for representing a 3x3 Tic-Tac-Toe game board, using the Piece enum
+        -:    4: * to represent the spaces on the board.
+        -:    5:**/
+        -:    6:
+        -:    7://Constructor sets an empty board and specifies it is X's turn first
+        -:    8:
+function _ZN14TicTacToeBoardC2Ev called 59 returned 100% blocks executed 100%
+       59:    9:TicTacToeBoard::TicTacToeBoard()
+        -:   10:{
+       59:   11:  turn = X;
+      236:   12:  for(int i=0; i<BOARDSIZE; i++)
+branch  0 taken 75%
+branch  1 taken 25% (fallthrough)
+      708:   13:    for(int j=0; j<BOARDSIZE; j++)
+branch  0 taken 75%
+branch  1 taken 25% (fallthrough)
+      531:   14:      board[i][j] = Blank;
+       59:   15:}
+        -:   16:
+        -:   17:/**
+        -:   18: * Switches turn member variable to represent whether it's X's or O's turn
+        -:   19: * and returns whose turn it is
+        -:   20:**/
+function _ZN14TicTacToeBoard10toggleTurnEv called 185 returned 100% blocks executed 100%
+      185:   21:Piece TicTacToeBoard::toggleTurn()
+        -:   22:{
+      185:   23:  if(turn == X){
+branch  0 taken 57% (fallthrough)
+branch  1 taken 43%
+      106:   24:    turn = O;
+        -:   25:  }
+        -:   26:  else
+       79:   27:    turn = X;
+      185:   28:  return turn;
+        -:   29:}
+        -:   30:
+        -:   31:/**
+        -:   32: * Places the piece of the current turn on the board, returns what
+        -:   33: * piece is placed, and toggles which Piece's turn it is. placePiece does 
+        -:   34: * NOT allow to place a piece in a location where there is already a piece.
+        -:   35: * In that case, placePiece just returns what is already at that location. 
+        -:   36: * Out of bounds coordinates return the Piece Invalid value. When the game
+        -:   37: * is over, no more pieces can be placed so attempting to place a piece
+        -:   38: * should neither change the board nor change whose turn it is.
+        -:   39:**/ 
+function _ZN14TicTacToeBoard10placePieceEii called 185 returned 100% blocks executed 100%
+      185:   40:Piece TicTacToeBoard::placePiece(int row, int column)
+        -:   41:{
+      185:   42:  if((row>2 || row < 0) || (column > 2 || column < 0) ){
+branch  0 taken 98% (fallthrough)
+branch  1 taken 2%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0%
+branch  4 taken 100% (fallthrough)
+branch  5 taken 0%
+branch  6 taken 0% (fallthrough)
+branch  7 taken 100%
+        4:   43:    return Invalid;
+        -:   44:  }
+      181:   45:  if(board[row][column] == Blank){
+branch  0 taken 98% (fallthrough)
+branch  1 taken 2%
+      177:   46:     board[row][column] = turn;
+      177:   47:     turn = toggleTurn();
+call    0 returned 100%
+        -:   48:  }
+      181:   49:  return board[row][column];
+        -:   50:}
+        -:   51:
+        -:   52:/**
+        -:   53: * Returns what piece is at the provided coordinates, or Blank if there
+        -:   54: * are no pieces there, or Invalid if the coordinates are out of bounds
+        -:   55:**/
+function _ZN14TicTacToeBoard8getPieceEii called 4 returned 100% blocks executed 100%
+        4:   56:Piece TicTacToeBoard::getPiece(int row, int column)
+        -:   57:{
+        4:   58:  return board[row][column];
+        -:   59:}
+        -:   60:
+        -:   61:/**
+        -:   62: * Returns which Piece has won, if there is a winner, Invalid if the game
+        -:   63: * is not over, or Blank if the board is filled and no one has won.
+        -:   64:**/
+function _ZN14TicTacToeBoard9getWinnerEv called 30 returned 100% blocks executed 96%
+       30:   65:Piece TicTacToeBoard::getWinner()
+        -:   66:{
+       30:   67:  bool filled = true;
+       30:   68:  int xpoint = 0;
+       30:   69:  int opoint = 0;
+      105:   70:  for(int i=0; i<BOARDSIZE; i++){
+branch  0 taken 77%
+branch  1 taken 23% (fallthrough)
+      324:   71:    for(int j=0; j<BOARDSIZE; j++){
+branch  0 taken 75%
+branch  1 taken 25% (fallthrough)
+      243:   72:      if(board[i][j] == X)
+branch  0 taken 32% (fallthrough)
+branch  1 taken 68%
+       77:   73:        ++xpoint;
+      243:   74:      if(board[i][j] == O)
+branch  0 taken 29% (fallthrough)
+branch  1 taken 71%
+       71:   75:        ++opoint;
+      243:   76:      if(board[i][j] == Blank)
+branch  0 taken 39% (fallthrough)
+branch  1 taken 61%
+       95:   77:        filled = false;
+        -:   78:    }
+       81:   79:    if(xpoint == 3){
+branch  0 taken 4% (fallthrough)
+branch  1 taken 96%
+        3:   80:      return X;
+        -:   81:    }
+       78:   82:    if(opoint == 3){
+branch  0 taken 4% (fallthrough)
+branch  1 taken 96%
+        3:   83:      return O;
+        -:   84:    }
+       75:   85:    xpoint = 0;
+       75:   86:    opoint = 0;
+        -:   87:   }
+       77:   88:    for(int i=0; i<BOARDSIZE; i++){
+branch  0 taken 82%
+branch  1 taken 18% (fallthrough)
+      252:   89:    for(int j=0; j<BOARDSIZE; j++){
+branch  0 taken 75%
+branch  1 taken 25% (fallthrough)
+      189:   90:      if(board[j][i] == X)
+branch  0 taken 31% (fallthrough)
+branch  1 taken 69%
+       59:   91:        ++xpoint;
+      189:   92:      if(board[j][i] == O)
+branch  0 taken 28% (fallthrough)
+branch  1 taken 72%
+       53:   93:        ++opoint;
+        -:   94:    }
+       63:   95:    if(xpoint == 3){
+branch  0 taken 5% (fallthrough)
+branch  1 taken 95%
+        3:   96:      return X;
+        -:   97:    }
+       60:   98:    if(opoint == 3){
+branch  0 taken 12% (fallthrough)
+branch  1 taken 88%
+        7:   99:      return O;
+        -:  100:    }
+       53:  101:    xpoint = 0;
+       53:  102:    opoint = 0;
+        -:  103:   }
+       14:  104:  if(board[0][0] == board[1][1] && board[1][1] == board[2][2]){
+branch  0 taken 64% (fallthrough)
+branch  1 taken 36%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0%
+        9:  105:    if(board[1][1] == X)
+branch  0 taken 44% (fallthrough)
+branch  1 taken 56%
+        4:  106:      return X;
+        5:  107:    if(board[1][1] == O)
+branch  0 taken 20% (fallthrough)
+branch  1 taken 80%
+        1:  108:      return O;
+        -:  109:  }
+        9:  110:  if(board[2][0] == board[1][1] && board[1][1] == board[0][2]){
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+branch  2 taken 56% (fallthrough)
+branch  3 taken 44%
+        5:  111:    if(board[1][1] == X)
+branch  0 taken 20% (fallthrough)
+branch  1 taken 80%
+        1:  112:      return X;
+        4:  113:    if(board[1][1] == O)
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:  114:      return O;
+        -:  115:  }
+        8:  116:  if(filled == false)
+branch  0 taken 50% (fallthrough)
+branch  1 taken 50%
+        4:  117:    return Invalid;
+        4:  118:  if(filled = true)
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        4:  119:    return Blank;
+    #####:  120:}
