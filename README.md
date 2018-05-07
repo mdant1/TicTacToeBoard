@@ -1,5 +1,7 @@
 # TicTacToeBoard
 
+[![Build Status](https://travis-ci.org/mdant1/TicTacToeBoard.svg?branch=master)](https://travis-ci.org/mdant1/TicTacToeBoard)
+
 ## Associated Enumerated Types
 `Piece` has four possible values: `X`,`O`,`Invalid`, and `Blank`
 
@@ -45,4 +47,6 @@ ___
 `Piece getWinner()`
 
 *Returns which Piece has won, if there is a winner, Invalid if the game
+
+
 is not over, or Blank if the board is filled and no one has won.*
