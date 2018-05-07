@@ -115,6 +115,6 @@ Piece TicTacToeBoard::getWinner()
   }
   if(filled == false)
     return Invalid;
-  if(filled = true)
+  if(filled == true)
     return Blank;
 }
